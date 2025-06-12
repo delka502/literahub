@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiteraHub Admin - Pengembalian</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="admin.html" class="sidebar-brand">
+                <i class="fas fa-book-open me-2"></i>Litera<span>Hub</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu mt-4">
+            <li>
+                <a href="admin.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-books.html">
+                    <i class="fas fa-book"></i>
+                    <span>Kelola Buku</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="admin-borrowing.html">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Peminjaman</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-returns.html" class="active">
+                    <i class="fas fa-undo"></i>
+                    <span>Pengembalian</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="admin-categories.html">
+                    <i class="fas fa-tags"></i>
+                    <span>Kategori</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-reports.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Laporan</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </a>
+            </li> -->
+            <li class="mt-4">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light mb-4">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-text">
+                    <i class="fas fa-calendar-alt me-2"></i> Kamis, 20 Maret 2025
+                </span>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell me-2"></i>
+                            <span class="badge rounded-pill bg-danger">3</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">5 buku baru perlu diverifikasi</a></li>
+                            <li><a class="dropdown-item" href="#">10 permintaan peminjaman menunggu</a></li>
+                            <li><a class="dropdown-item" href="#">3 buku melewati tenggat pengembalian</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown ms-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle me-2" width="40" height="40" alt="Admin">
+                            <span>Admin Perpustakaan</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
+                            <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Keluar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">Pengelolaan Pengembalian</h1>
+                <p class="text-muted">Kelola seluruh proses pengembalian buku perpustakaan</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-download me-1"></i> Ekspor Data
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                    <i class="fas fa-undo me-1"></i> Proses Pengembalian Baru
+                </button>
+            </div>
+        </div>
+
+        <!-- Process Return Quick Form -->
+        <div class="card dashboard-card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">Proses Pengembalian Cepat</h5>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-4">
+                        <label for="borrowingId" class="form-label">ID Peminjaman</label>
+                        <input type="text" class="form-control" id="borrowingId" placeholder="Masukkan ID peminjaman">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="bookBarcode" class="form-label">Kode Barcode Buku</label>
+                        <input type="text" class="form-control" id="bookBarcode" placeholder="Scan barcode buku">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="memberId" class="form-label">ID Anggota</label>
+                        <input type="text" class="form-control" id="memberId" placeholder="Masukkan ID anggota">
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fas fa-search me-1"></i> Cari Peminjaman
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Return Management Tabs -->
+        <ul class="nav nav-tabs mb-4" id="returnsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">
+                    Buku yang Harus Dikembalikan <span class="badge rounded-pill bg-primary ms-1">58</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="returned-tab" data-bs-toggle="tab" data-bs-target="#returned" type="button" role="tab">
+                    Baru Dikembalikan <span class="badge rounded-pill bg-success ms-1">24</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="overdue-tab" data-bs-toggle="tab" data-bs-target="#overdue" type="button" role="tab">
+                    Terlambat Dikembalikan <span class="badge rounded-pill bg-danger ms-1">27</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="damaged-tab" data-bs-toggle="tab" data-bs-target="#damaged" type="button" role="tab">
+                    Buku Rusak/Hilang <span class="badge rounded-pill bg-warning text-dark ms-1">5</span>
+                </button>
+            </li>
+        </ul>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="returnsTabContent">
+            <!-- Pending Returns Tab -->
+            <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white py-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Cari berdasarkan ID, judul, atau anggota...">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option selected>Filter Status</option>
+                                    <option>Segera Jatuh Tempo</option>
+                                    <option>Jatuh Tempo Hari Ini</option>
+                                    <option>Semua</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option selected>Urutkan Berdasarkan</option>
+                                    <option>Tenggat Terdekat</option>
+                                    <option>Nama Anggota</option>
+                                    <option>Judul Buku</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID Peminjaman</th>
+                                        <th>Anggota</th>
+                                        <th>Judul Buku</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Tenggat</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B-2025031001</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Irfan Nugraha
+                                        </td>
+                                        <td>Kalkulus Lanjutan</td>
+                                        <td>01/03/2025</td>
+                                        <td class="text-warning">21/03/2025 (Besok)</td>
+                                        <td><span class="badge bg-warning text-dark">Segera</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                <i class="fas fa-undo me-1"></i> Proses
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025030602</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Lina Sari
+                                        </td>
+                                        <td>Akuntansi Manajemen</td>
+                                        <td>06/03/2025</td>
+                                        <td class="text-danger">20/03/2025 (Hari Ini)</td>
+                                        <td><span class="badge bg-danger">Hari Terakhir</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                <i class="fas fa-undo me-1"></i> Proses
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025030703</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Eko Pratama
+                                        </td>
+                                        <td>Jaringan Komputer untuk Pemula</td>
+                                        <td>07/03/2025</td>
+                                        <td>21/03/2025</td>
+                                        <td><span class="badge bg-warning text-dark">Segera</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                <i class="fas fa-undo me-1"></i> Proses
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025030804</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Dewi Anggraini
+                                        </td>
+                                        <td>Sastra Inggris Modern</td>
+                                        <td>08/03/2025</td>
+                                        <td>22/03/2025</td>
+                                        <td><span class="badge bg-primary">Normal</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                <i class="fas fa-undo me-1"></i> Proses
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025030905</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Anwar Santoso
+                                        </td>
+                                        <td>Psikologi Kognitif</td>
+                                        <td>09/03/2025</td>
+                                        <td>23/03/2025</td>
+                                        <td><span class="badge bg-primary">Normal</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                <i class="fas fa-undo me-1"></i> Proses
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <nav>
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Returned Tab -->
+            <div class="tab-pane fade" id="returned" role="tabpanel" aria-labelledby="returned-tab">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white py-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Cari berdasarkan ID, judul, atau anggota...">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option selected>Filter Periode</option>
+                                    <option>Hari Ini</option>
+                                    <option>Minggu Ini</option>
+                                    <option>Bulan Ini</option>
+                                    <option>Semua</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option selected>Urutkan Berdasarkan</option>
+                                    <option>Terbaru</option>
+                                    <option>Terlama</option>
+                                    <option>Nama Anggota</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID Peminjaman</th>
+                                        <th>Anggota</th>
+                                        <th>Judul Buku</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>B-2025021901</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Maya Wijaya
+                                        </td>
+                                        <td>Fisika Dasar</td>
+                                        <td>19/02/2025</td>
+                                        <td>20/03/2025</td>
+                                        <td><span class="badge bg-success">Tepat Waktu</span></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewReturnDetailsModal">
+                                                <i class="fas fa-eye me-1"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025022305</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Bayu Nugroho
+                                        </td>
+                                        <td>Manajemen Sumber Daya Manusia</td>
+                                        <td>23/02/2025</td>
+                                        <td>20/03/2025</td>
+                                        <td><span class="badge bg-success">Tepat Waktu</span></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewReturnDetailsModal">
+                                                <i class="fas fa-eye me-1"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025022002</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Siti Rahma
+                                        </td>
+                                        <td>Kimia Organik</td>
+                                        <td>20/02/2025</td>
+                                        <td>19/03/2025</td>
+                                        <td><span class="badge bg-success">Tepat Waktu</span></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewReturnDetailsModal">
+                                                <i class="fas fa-eye me-1"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025022104</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Raka Wijaya
+                                        </td>
+                                        <td>Ekonomi Makro</td>
+                                        <td>21/02/2025</td>
+                                        <td>19/03/2025</td>
+                                        <td><span class="badge bg-success">Tepat Waktu</span></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewReturnDetailsModal">
+                                                <i class="fas fa-eye me-1"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>B-2025021803</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Dian Putri
+                                        </td>
+                                        <td>Dasar-dasar Pemrograman</td>
+                                        <td>18/02/2025</td>
+                                        <td>18/03/2025</td>
+                                        <td><span class="badge bg-success">Tepat Waktu</span></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewReturnDetailsModal">
+                                                <i class="fas fa-eye me-1"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <nav>
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overdue Returns Tab -->
+            <div class="tab-pane fade" id="overdue" role="tabpanel" aria-labelledby="overdue-tab">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Buku Terlambat Dikembalikan</h5>
+                        <button class="btn btn-danger">
+                            <i class="fas fa-envelope me-1"></i> Kirim Pengingat Massal
+                        </button>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="selectAll">
+                                                <label class="form-check-label" for="selectAll"></label>
+                                            </div>
+                                        </th>
+                                        <th>ID Peminjaman</th>
+                                        <th>Anggota</th>
+                                        <th>Judul Buku</th>
+                                        <th>Tenggat</th>
+                                        <th>Terlambat</th>
+                                        <th>Denda</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label"></label>
+                                            </div>
+                                        </td>
+                                        <td>B-2025020501</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Aditya Prakasa
+                                        </td>
+                                        <td>Algoritma Pemrograman</td>
+                                        <td>19/02/2025</td>
+                                        <td class="text-danger">29 hari</td>
+                                        <td>Rp 145.000</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#sendReminderModal">
+                                                    <i class="fas fa-bell me-1"></i> Ingatkan
+                                                </button>
+                                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                    <i class="fas fa-undo me-1"></i> Proses
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label"></label>
+                                            </div>
+                                        </td>
+                                        <td>B-2025020802</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Ratna Dewi
+                                        </td>
+                                        <td>Statistik untuk Bisnis</td>
+                                        <td>22/02/2025</td>
+                                        <td class="text-danger">26 hari</td>
+                                        <td>Rp 130.000</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#sendReminderModal">
+                                                    <i class="fas fa-bell me-1"></i> Ingatkan
+                                                </button>
+                                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#processReturnModal">
+                                                    <i class="fas fa-undo me-1"></i> Proses
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox">
+                                                <label class="form-check-label"></label>
+                                            </div>
+                                        </td>
+                                        <td>B-2025021203</td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" class="rounded-circle me-2" width="32" height="32" alt="User">
+                                            Hendro Setiawan
+                                        </td>
+                                        <td>Teknik Sipil Dasar</td>
+                                        <td>26/02/2025</td>
+                                        <td class="text-danger">22 hari</td>
+                                        <td>R

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiteraHub Admin - Peminjaman Buku</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="admin-dashboard.html" class="sidebar-brand">
+                <i class="fas fa-book-open me-2"></i>Litera<span>Hub</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu mt-4">
+            <li>
+                <a href="admin.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-books.html">
+                    <i class="fas fa-book"></i>
+                    <span>Kelola Buku</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="admin-borrowing.html" class="active">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Peminjaman</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-returns.html">
+                    <i class="fas fa-undo"></i>
+                    <span>Pengembalian</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="admin-categories.html">
+                    <i class="fas fa-tags"></i>
+                    <span>Kategori</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-reports.html">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Laporan</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin-settings.html">
+                    <i class="fas fa-cog"></i>
+                    <span>Pengaturan</span>
+                </a>
+            </li> -->
+            <li class="mt-4">
+                <a href="index.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light mb-4">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-text">
+                    <i class="fas fa-calendar-alt me-2"></i> Kamis, 10 April 2025
+                </span>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell me-2"></i>
+                            <span class="badge rounded-pill bg-danger">3</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">5 buku baru perlu diverifikasi</a></li>
+                            <li><a class="dropdown-item" href="#">10 permintaan peminjaman menunggu</a></li>
+                            <li><a class="dropdown-item" href="#">3 buku melewati tenggat pengembalian</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown ms-3">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle me-2" width="40" height="40" alt="Admin">
+                            <span>Admin Perpustakaan</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profil Saya</a></li>
+                            <li><a class="dropdown-item" href="#">Pengaturan</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Keluar</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="h3">Kelola Peminjaman</h1>
+                <p class="text-muted">Kelola semua transaksi peminjaman buku perpustakaan</p>
+            </div>
+            <div>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBorrowingModal">
+                    <i class="fas fa-plus me-2"></i> Peminjaman Baru
+                </button>
+            </div>
+        </div>
+
+        <!-- Overview Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book-reader fa-3x text-primary mb-3"></i>
+                        <h5>Total Peminjaman</h5>
+                        <h3 class="fw-bold">1,247</h3>
+                        <p class="text-muted mb-0">Bulan ini</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock fa-3x text-warning mb-3"></i>
+                        <h5>Belum Dikembalikan</h5>
+                        <h3 class="fw-bold">384</h3>
+                        <p class="text-muted mb-0">Peminjaman aktif</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+                        <h5>Terlambat</h5>
+                        <h3 class="fw-bold">42</h3>
+                        <p class="text-muted mb-0">Perlu tindakan</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                        <h5>Dikembalikan</h5>
+                        <h3 class="fw-bold">863</h3>
+                        <p class="text-muted mb-0">Bulan ini</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter Options -->
+        <div class="card dashboard-card mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Cari ID, judul, atau nama peminjam...">
+                            <button class="btn btn-primary">Cari</button>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="d-flex gap-2">
+                            <select class="form-select">
+                                <option value="">Status Peminjaman</option>
+                                <option value="active">Aktif</option>
+                                <option value="returned">Dikembalikan</option>
+                                <option value="overdue">Terlambat</option>
+                                <option value="lost">Hilang</option>
+                            </select>
+                            <input type="date" class="form-control" placeholder="Dari Tanggal">
+                            <input type="date" class="form-control" placeholder="Sampai Tanggal">
+                            <select class="form-select">
+                                <option value="">Urutkan</option>
+                                <option value="newest">Terbaru</option>
+                                <option value="oldest">Terlama</option>
+                                <option value="due_date">Tenggat Terdekat</option>
+                            </select>
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-filter me-2"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Semua Peminjaman</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Aktif</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Terlambat 
+                    <span class="badge rounded-pill bg-danger">42</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dikembalikan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Permintaan 
+                    <span class="badge rounded-pill bg-primary">10</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Borrowing List Card -->
+        <div class="card dashboard-card mb-4">
+            <div class="card-header bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Daftar Peminjaman</h5>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-print me-1"></i> Cetak
+                        </button>
+                        <button class="btn btn-sm btn-outline-success me-2">
+                            <i class="fas fa-file-excel me-1"></i> Export Excel
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-file-pdf me-1"></i> Export PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-3">ID Pinjam</th>
+                                <th>Buku</th>
+                                <th>Peminjam</th>
+                                <th>Tanggal Pinjam</th>
+                                <th>Tenggat Kembali</th>
+                                <th>Status</th>
+                                <th>Denda</th>
+                                <th class="text-end pe-3">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-3">PJM-7845</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Pemrograman Python untuk Pemula</div>
+                                            <div class="small text-muted">ID: BK-3421</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Ahmad Fadli</div>
+                                    <div class="small text-muted">Mahasiswa Informatika</div>
+                                </td>
+                                <td>05 Apr 2025</td>
+                                <td>19 Apr 2025</td>
+                                <td>
+                                    <span class="badge bg-success">Aktif</span>
+                                </td>
+                                <td>Rp0</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#extendBorrowingModal"><i class="fas fa-clock me-2"></i>Perpanjang</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-3">PJM-7844</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Hukum Pidana Indonesia</div>
+                                            <div class="small text-muted">ID: BK-3422</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Nadia Putri</div>
+                                    <div class="small text-muted">Mahasiswa Hukum</div>
+                                </td>
+                                <td>01 Apr 2025</td>
+                                <td>15 Apr 2025</td>
+                                <td>
+                                    <span class="badge bg-success">Aktif</span>
+                                </td>
+                                <td>Rp0</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#extendBorrowingModal"><i class="fas fa-clock me-2"></i>Perpanjang</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-danger">
+                                <td class="ps-3">PJM-7843</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Farmasi Klinik</div>
+                                            <div class="small text-muted">ID: BK-3423</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Rini Wulandari</div>
+                                    <div class="small text-muted">Mahasiswa Farmasi</div>
+                                </td>
+                                <td>15 Mar 2025</td>
+                                <td>29 Mar 2025</td>
+                                <td>
+                                    <span class="badge bg-danger">Terlambat (12 hari)</span>
+                                </td>
+                                <td>Rp60.000</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#sendReminderModal"><i class="fas fa-bell me-2"></i>Kirim Pengingat</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-3">PJM-7842</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Sastra Indonesia Modern</div>
+                                            <div class="small text-muted">ID: BK-3424</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Budi Santoso</div>
+                                    <div class="small text-muted">Dosen Bahasa</div>
+                                </td>
+                                <td>02 Apr 2025</td>
+                                <td>16 Apr 2025</td>
+                                <td>
+                                    <span class="badge bg-success">Aktif</span>
+                                </td>
+                                <td>Rp0</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#extendBorrowingModal"><i class="fas fa-clock me-2"></i>Perpanjang</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-warning">
+                                <td class="ps-3">PJM-7841</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Ekonomi Makro</div>
+                                            <div class="small text-muted">ID: BK-3425</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Siti Rahayu</div>
+                                    <div class="small text-muted">Mahasiswa Ekonomi</div>
+                                </td>
+                                <td>20 Mar 2025</td>
+                                <td>12 Apr 2025</td>
+                                <td>
+                                    <span class="badge bg-warning text-dark">Hampir Terlambat (2 hari)</span>
+                                </td>
+                                <td>Rp0</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#extendBorrowingModal"><i class="fas fa-clock me-2"></i>Perpanjang</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#sendReminderModal"><i class="fas fa-bell me-2"></i>Kirim Pengingat</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-3">PJM-7840</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Psikologi Pendidikan</div>
+                                            <div class="small text-muted">ID: BK-3426</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Deni Prayoga</div>
+                                    <div class="small text-muted">Mahasiswa Psikologi</div>
+                                </td>
+                                <td>28 Mar 2025</td>
+                                <td>11 Apr 2025</td>
+                                <td>
+                                    <span class="badge bg-success">Aktif</span>
+                                </td>
+                                <td>Rp0</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#returnBookModal"><i class="fas fa-undo me-2"></i>Proses Pengembalian</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#extendBorrowingModal"><i class="fas fa-clock me-2"></i>Perpanjang</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#lostBookModal"><i class="fas fa-exclamation-triangle me-2"></i>Laporkan Hilang</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-success">
+                                <td class="ps-3">PJM-7839</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="/api/placeholder/40/50" class="book-cover me-2" alt="Book Cover">
+                                        <div>
+                                            <div class="fw-bold">Kecerdasan Buatan dan Aplikasinya</div>
+                                            <div class="small text-muted">ID: BK-3427</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">Irfan Hakim</div>
+                                    <div class="small text-muted">Mahasiswa Teknik</div>
+                                </td>
+                                <td>15 Mar 2025</td>
+                                <td>29 Mar 2025</td>
+                                <td>
+                                    <span class="badge bg-info">Dikembalikan (08 Apr 2025)</span>
+                                </td>
+                                <td>Rp50.000</td>
+                                <td>
+                                    <div class="dropdown text-end pe-3">
+                                        <button class="btn btn-sm btn-link" data-bs-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#viewBorrowingModal"><i class="fas fa-eye me-2"></i>Lihat Detail</a></li>
+                                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#printReceiptModal"><i class="fas fa-print me-2"></i>Cetak Bukti</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-times me-2"></i>Batalkan Pengembalian</a></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <select class="form-select form-select-sm" style="width: auto;">
+                            <option value="10">10 baris</option>
+                            <option value="25">25 baris</option>
+                            <option value="50">50 baris</option>
+                            <option value="100">100 baris

@@ -1,0 +1,195 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #007bff 0%, #0027b2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.main-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.loan-status {
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-weight: 500;
+}
+
+.status-returned {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-borrowed {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.status-overdue {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.stats-card {
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.icon-total {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+}
+
+.icon-active {
+    background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+}
+
+.icon-returned {
+    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+}
+
+.book-title {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.book-author {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.date-info {
+    font-size: 0.85rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+.actions-column {
+    width: 150px;
+}
+
+.btn-action {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.loan-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    background-color: #f8f9fa;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 45px;
+    padding-bottom: 20px;
+}
+
+.timeline-item:before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #dee2e6;
+}
+
+.timeline-item:last-child:before {
+    height: 20px;
+}
+
+.timeline-badge {
+    position: absolute;
+    left: 5px;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-size: 0.8rem;
+    line-height: 22px;
+}
+
+.badge-borrowed {
+    background-color: #ffc107;
+}
+
+.badge-returned {
+    background-color: #28a745;
+}
+
+.badge-processing {
+    background-color: #17a2b8;
+}
+
+.filter-bar {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.pagination {
+    margin-bottom: 0;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #20bf55;
+    border-color: #20bf55;
+}
+
+.pagination .page-link {
+    color: #20bf55;
+}
+
+.book-cover {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.expand-btn {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.rotate-icon {
+    transform: rotate(180deg);
+}
